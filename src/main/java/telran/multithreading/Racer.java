@@ -13,7 +13,7 @@ public class Racer extends Thread {
         for (int i = 0; i < race.getDistance(); i++) {
             try {
                 sleep(race.getSleepTime());
-                if (race.setWinner(number, i)) {
+                if (race.reportRacer(number, i)) {
                     System.out.println("Rider ahead: " + number);
                 }
             } catch (InterruptedException e) {

@@ -30,10 +30,10 @@ public class Race {
         return random.nextInt(maxSleepTime - minSleepTime + 1) + minSleepTime;
     }
 
-    public boolean setWinner(int winner, int distance) {
-        boolean isValid = activeDistance.compareAndSet(distance - 1, distance);
-        if (isValid) this.winner = winner;
-        return isValid;
+    public boolean reportRacer(int racer, int distance) {
+        boolean isFirst = activeDistance.compareAndSet(distance - 1, distance);
+        if (isFirst) this.winner = racer;
+        return isFirst;
     }
 
     public int getWinner() {
