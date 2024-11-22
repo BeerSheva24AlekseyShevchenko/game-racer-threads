@@ -21,11 +21,6 @@ public class Racer extends Thread {
                 e.printStackTrace();
             }
         }
-
-        finish();
-    }
-
-    private void finish() {
         runningTime = Duration.between(race.getStartTime(), LocalDateTime.now()).toMillis();
     }
 
