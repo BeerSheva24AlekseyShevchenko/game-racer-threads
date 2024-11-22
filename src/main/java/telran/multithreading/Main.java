@@ -5,13 +5,21 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         // TODO Add CLI
-        int distance = 30;
+        int distance = 10;
         int nRacers = 10;
 
         Race race = new Race(distance, 0, 300);
+        RaceLogger raceLogger = new RaceLogger(race);
         Racer[] racers = new Racer[nRacers];
+        raceLogger.start();
         startRace(racers, race);
         witeRace(racers);
+
+        try {
+            raceLogger.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         System.out.println("Racer won: " + race.getWinner());
     }

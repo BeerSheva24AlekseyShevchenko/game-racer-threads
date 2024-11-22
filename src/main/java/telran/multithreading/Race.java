@@ -33,4 +33,8 @@ public class Race {
     public int getWinner() {
         return reports.get(distance - 1);
     }
+
+    public AtomicIntegerArray getReports() {
+        return reports;
+    }
 }
