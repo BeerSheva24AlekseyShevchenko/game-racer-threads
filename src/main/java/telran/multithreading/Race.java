@@ -1,11 +1,10 @@
 package telran.multithreading;
 
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicIntegerArray;
 
 public class Race {
-    private AtomicInteger activeDistance = new AtomicInteger(0);
-    private int winner;
+    private AtomicIntegerArray reports;
 
     private int distance;
     private int minSleepTime;
@@ -15,14 +14,11 @@ public class Race {
         this.distance = distance;
         this.minSleepTime = minSleepTime;
         this.maxSleepTime = maxSleepTime;
+        this.reports = new AtomicIntegerArray(distance);
     }
 
     public int getDistance() {
         return distance;
-    }
-
-    public int getActiveDistance() {
-        return activeDistance.get();
     }
 
     public int getSleepTime() {
@@ -31,16 +27,10 @@ public class Race {
     }
 
     public boolean reportRacer(int racer, int distance) {
-        boolean isFirst = activeDistance.compareAndSet(distance - 1, distance);
-        if (isFirst) this.winner = racer;
-        return isFirst;
+        return reports.compareAndSet(distance, 0, racer);
     }
 
     public int getWinner() {
-        return winner;
-    }
-
-    public boolean isFinished() {
-        return distance == activeDistance.get();
+        return reports.get(distance - 1);
     }
 }
