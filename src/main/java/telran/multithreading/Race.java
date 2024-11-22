@@ -1,20 +1,18 @@
 package telran.multithreading;
 
+import java.time.LocalDateTime;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicIntegerArray;
 
 public class Race {
-    private AtomicIntegerArray reports;
-
     private int distance;
     private int minSleepTime;
     private int maxSleepTime;
+    private LocalDateTime startTime;
 
     public Race(int distance, int minSleepTime, int maxSleepTime) {
         this.distance = distance;
         this.minSleepTime = minSleepTime;
         this.maxSleepTime = maxSleepTime;
-        this.reports = new AtomicIntegerArray(distance);
     }
 
     public int getDistance() {
@@ -26,15 +24,11 @@ public class Race {
         return random.nextInt(maxSleepTime - minSleepTime + 1) + minSleepTime;
     }
 
-    public boolean reportRacer(int racer, int distance) {
-        return reports.compareAndSet(distance, 0, racer);
+    public LocalDateTime getStartTime() {
+        return startTime;
     }
 
-    public int getWinner() {
-        return reports.get(distance - 1);
-    }
-
-    public AtomicIntegerArray getReports() {
-        return reports;
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
     }
 }
