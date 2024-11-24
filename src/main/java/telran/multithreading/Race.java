@@ -31,11 +31,12 @@ public class Race {
         return random.nextInt(maxSleepTime - minSleepTime + 1) + minSleepTime;
     }
 
-    synchronized public void reportOfFinish(int racer) {
-        reports.add(new ReportItem(
-            racer,
-            Duration.between(startTime, LocalDateTime.now()).toMillis()
-        ));
+    public void reportOfFinish(int racer) {
+        long time = Duration.between(startTime, LocalDateTime.now()).toMillis();
+        ReportItem report = new ReportItem(racer, time);
+        synchronized (reports) {
+            reports.add(report);
+        }
     }
 
     public List<ReportItem> getReport() {
