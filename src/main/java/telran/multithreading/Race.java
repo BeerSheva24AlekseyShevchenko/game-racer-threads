@@ -34,9 +34,7 @@ public class Race {
     public void reportOfFinish(int racer) {
         long time = Duration.between(startTime, LocalDateTime.now()).toMillis();
         ReportItem report = new ReportItem(racer, time);
-        synchronized (reports) {
-            reports.add(report);
-        }
+        reports.add(report);
     }
 
     public List<ReportItem> getReport() {
