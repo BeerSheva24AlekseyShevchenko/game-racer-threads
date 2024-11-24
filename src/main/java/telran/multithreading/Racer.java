@@ -17,6 +17,9 @@ public class Racer extends Thread {
                 e.printStackTrace();
             }
         }
-        race.reportOfFinish(number);
+
+        synchronized (race) {
+            race.reportOfFinish(number);
+        }
     }
 }
