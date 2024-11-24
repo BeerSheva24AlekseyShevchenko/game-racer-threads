@@ -1,9 +1,16 @@
 package telran.multithreading;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+record ReportItem(int number, long time) {
+}
 public class Race {
+    private List<ReportItem> reports = new ArrayList<>();
+
     private int distance;
     private int minSleepTime;
     private int maxSleepTime;
@@ -24,8 +31,15 @@ public class Race {
         return random.nextInt(maxSleepTime - minSleepTime + 1) + minSleepTime;
     }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
+    synchronized public void reportOfFinish(int racer) {
+        reports.add(new ReportItem(
+            racer,
+            Duration.between(startTime, LocalDateTime.now()).toMillis()
+        ));
+    }
+
+    public List<ReportItem> getReport() {
+        return new ArrayList<>(reports);
     }
 
     public void setStartTime(LocalDateTime startTime) {

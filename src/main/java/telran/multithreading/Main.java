@@ -2,7 +2,6 @@ package telran.multithreading;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 import telran.view.InputOutput;
@@ -42,18 +41,18 @@ public class Main {
         Racer[] racers = new Racer[nThreads];
         startRacers(racers, race);
         witeRacers(racers);
-        displayReport(racers);
+        displayReport(race);
     }
 
-    private static void displayReport(Racer[] racers) {
-        List<Racer> report = Arrays.stream(racers).sorted(Comparator.comparingLong(Racer::getRunningTime)).toList();
-        for (int i = 0; i < racers.length; i++) {
-            Racer racer = report.get(i);
+    private static void displayReport(Race race) {
+        List<ReportItem> report = race.getReport();
+        for (int i = 0; i < report.size(); i++) {
+            ReportItem item = report.get(i);
             System.out.printf(
                 "# %d - racer: %d, time: %dms \n",
-                i,
-                racer.getNumber(),
-                racer.getRunningTime()
+                i + 1,
+                item.number(),
+                item.time()
             );
         }
     }
